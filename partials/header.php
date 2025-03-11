@@ -1,3 +1,6 @@
+<?php
+   require('_inc/functions.php');
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -21,10 +24,14 @@
         </div>
       <nav class="main-nav">
         <ul class="main-menu" id="main-menu">
-            <li><a href="index.php">Domov</a></li>
-            <li><a href="portfolio.php">Portfólio</a></li>
-            <li><a href="qna.php">Q&A</a></li>
-            <li><a href="kontakt.php">Kontakt</a></li>
+          <?php
+              $pages = array('Domov'=>'index.php',
+              'Portfólio'=>'portfolio.php',
+              'Q&A'=>'qna.php',
+              'Kontakt'=>'kontakt.php'  
+              );
+            echo(get_menu($pages));
+          ?>    
         </ul>
         <a class="hamburger" id="hamburger">
             <i class="fa fa-bars"></i>
