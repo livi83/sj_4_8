@@ -1,4 +1,3 @@
-  
 <footer class="container bg-dark text-white">
   <div class="row">
     <div class="col-25">
@@ -26,9 +25,9 @@
   <div class="row">
     Created and designed by Lívia
   </div>
-</footer>
-  <script src="js/accordion.js"></script>
-  <script src="js/menu.js"></script>
-  <script src="js/slider.js"></script>
+</footer>  
+  <?php
+    add_scripts();
+  ?>
 </body>
 </html>

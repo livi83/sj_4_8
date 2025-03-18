@@ -10,7 +10,16 @@
     <section class="container">
       <div class="row">
         <div class="col-100 text-center">
-            <h2>Ďakujeme za vyplnenie formulára</h2>
+            <?php
+                if ($_SERVER["REQUEST_METHOD"] == "POST") {
+                  $contact_name = $_POST['meno'];
+                  if (empty($contact_name)) {
+                    echo "Empty contact name";
+                  } else {
+                    echo "<h2>$contact_name ďakujeme za vyplnenie formulára</h2";
+                  }    
+                }  
+            ?>
         </div>
       </div>
     </section>
