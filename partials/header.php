@@ -1,3 +1,6 @@
+<?php
+require_once('_inc/autoload.php');
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -21,10 +24,20 @@
         </div>
       <nav class="main-nav">
         <ul class="main-menu" id="main-menu">
+          <?php
+            $menu = new Menu();
+            $menuItems = $menu->index();
+            foreach ($menuItems as $item) {
+              echo '<li><a href="' . $item['link'] . '">' . $item['label'] . '</a></li>';
+            }
+          ?>
+          <!--
             <li><a href="index.php">Domov</a></li>
             <li><a href="portfolio.php">Portfólio</a></li>
             <li><a href="qna.php">Q&A</a></li>
             <li><a href="kontakt.php">Kontakt</a></li>
+        -->
+         
         </ul>
         <a class="hamburger" id="hamburger">
             <i class="fa fa-bars"></i>

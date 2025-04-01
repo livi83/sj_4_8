@@ -13,9 +13,26 @@
   </div>
   <div class="col-25">
     <h4>Rýchle odkazy</h4>
+    <?php
+        $customMenu = [
+          ['label' => 'Domov', 'link' => 'index.php'],
+          ['label' => 'Portfólio', 'link' => 'portfolio.php'],
+          ['label' => 'Kontakt', 'link' => 'kontakt.php']
+        ];
+        $menu = new Menu($customMenu);
+        $menuItems = $menu->index();
+        foreach ($menuItems as $item) {
+          echo '<p><a href="' . $item['link'] . '">' . $item['label'] . '</a></p>';
+        }
+
+    ?>
+    
+    <!--
     <p><a href="index.php">Domov</a></p>
     <p><a href="qna.php">Q&A</a></p>
     <p><a href="kontakt.php">Kontakt</a></p>
+    !-->
+    
   </div>
   <div class="col-25">
     <h4>Nájdete nás</h4>
