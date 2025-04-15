@@ -14,7 +14,7 @@ class Menu
                 ['label' => 'Domov', 'link' => 'index.php'],
                 ['label' => 'Portfólio', 'link' => 'portfolio.php'],
                 ['label' => 'Q&A', 'link' => 'qna.php'],
-                ['label' => 'Kontakt', 'link' => 'kontakt.php']
+                ['label' => 'Kontakt', 'link' => 'contact.php']
             ];
         }
         

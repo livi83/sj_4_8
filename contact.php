@@ -1,5 +1,19 @@
 <?php
   include('partials/header.php');
+  $db = new Database();
+  $contact = new Contact($db);
+  if($_SERVER['REQUEST_METHOD']=='POST'){
+    $name = $_POST['name'];
+    $email = $_POST['email'];
+    $message = $_POST['message'];
+    //print_r($_POST);
+    if ($contact->create($name, $email, $message)) {
+      header("Location: thankyou.php");
+      exit;
+    } else {
+        echo "Error creating contact.";
+    }
+  }
 ?>
 <main>
   <section class="banner">
@@ -25,7 +39,7 @@
       </div>
       <div class="col-50 text-right">
         <h3>Napíšte nám</h3>
-        <form id="contact" action="thankyou.php" method="POST">
+        <form id="contact" action="" method="POST">
           <input type="text" placeholder="Vaše meno" id ="name" name="name" required><br>
           <input type="email" placeholder="Váš email" id="email" name="email" required><br>
           <textarea placeholder="Vaša správa" id="message" name="message" ></textarea><br>
