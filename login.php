@@ -12,5 +12,5 @@ include('partials/header.php');
     </form>
 </section>
 <?php
-include('partials/footerc:\Users\Livia\Downloads\db_blog.sql.php');
+include('partials/footer.php');
 ?>
