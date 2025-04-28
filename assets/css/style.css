@@ -24,6 +24,9 @@ p{
 h1,h2,h3,h4,h5,h6,p,a,li{
   margin-bottom: 0.7em;
 }
+.error{
+  color:red;
+}
 main{
   /*margin-top:60px;*/
 }
