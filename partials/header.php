@@ -1,6 +1,10 @@
 <?php
 require_once('_inc/autoload.php');
+session_start();
+$db = new Database();
+$auth = new Authenticate($db);
 
+print_r($_SESSION);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -32,31 +36,13 @@ require_once('_inc/autoload.php');
               echo '<li><a href="' . $item['link'] . '">' . $item['label'] . '</a></li>';
             }
           ?>
-          <!--
-            <li><a href="index.php">Domov</a></li>
-            <li><a href="portfolio.php">Portfólio</a></li>
-            <li><a href="qna.php">Q&A</a></li>
-            <li><a href="kontakt.php">Kontakt</a></li>
-        -->
-         
+          <?php if ($auth->isLoggedIn()): ?>
+            <li><a href="logout.php">Odhlásiť sa</a></li>
+          <?php endif; ?>
         </ul>
         <a class="hamburger" id="hamburger">
             <i class="fa fa-bars"></i>
         </a>
       </nav>
     </header>
-    <?php
     
-    /*$db = new Database();
-    $conn = $db->getConnection();
-    if($conn){
-      echo 'Máme spojenie<br>';
-      var_dump($conn);
-    }*/
-
-    /*$db = new Database();
-    $contact = new Contact($db);
-    $contacts = $contact->index();
-    var_dump($contacts);*/
-    ?>
-   

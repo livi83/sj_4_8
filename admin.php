@@ -2,14 +2,21 @@
 include('partials/header.php');
 
 $db = new Database();
+$auth = new Authenticate($db);
+$auth->requireLogin();
+
+// Získanie role prihláseného používateľa
+$userRole = $auth->getUserRole();
 
 // Kontakty
 $contact = new Contact($db);
 $contacts = $contact->index();
 
-// Používatelia
-$user = new User($db);
-$users = $user->index();
+// Používatelia (iba pre adminov)
+if ($userRole == 0) {
+    $user = new User($db);
+    $users = $user->index();
+}
 
 // Vymazanie správy
 if (isset($_GET['delete'])) {
@@ -18,16 +25,11 @@ if (isset($_GET['delete'])) {
     exit;
 }
 
-// Vymazanie používateľa
-if (isset($_GET['delete_user'])) {
-    $user->destroy($_GET['delete_user']);
-    header("Location: admin.php");
-    exit;
-}
+
 ?>
 
 <section class="container">
-    <h1>Vítaj admin</h1>
+    <h1>Vítaj</h1>
 
     <!-- Sekcia kontaktov -->
     <h2>Kontakty</h2>
@@ -37,7 +39,7 @@ if (isset($_GET['delete_user'])) {
             <th>ID</th>
             <th>Meno</th>
             <th>Email</th>
-            <th>Správa</th>            
+            <th>Správa</th>
             <th>Delete</th>
             <th>Edit</th>
             <th>Show</th>
@@ -55,34 +57,33 @@ if (isset($_GET['delete_user'])) {
         <?php endforeach; ?>
     </table>
 
-    <hr>
-
-    <!-- Sekcia používateľov -->
-    <h2>Používatelia</h2>
-    <a href="user-create.php" class="button">Create User</a>
-    <table border="1">
-        <tr>
-            <th>ID</th>
-            <th>Meno</th>
-            <th>Email</th>
-            <th>Role</th>
-            <th>Delete</th>
-            <th>Edit</th>
-            <th>Show</th>
-        </tr>
-        <?php foreach($users as $u): ?>
+    <!-- Sekcia používateľov (iba pre adminov) -->
+    <?php if ($userRole == 0): ?>
+        <h2>Používatelia</h2>
+        <a href="user-create.php" class="button">Create User</a>
+        <table border="1">
             <tr>
-                <td><?= htmlspecialchars($u['id']) ?></td>
-                <td><?= htmlspecialchars($u['name']) ?></td>
-                <td><?= htmlspecialchars($u['email']) ?></td>
-                <td><?= htmlspecialchars($u['role']) ?></td>
-                <td><a href="?delete_user=<?= $u['id'] ?>" onclick="return confirm('Určite chcete vymazať tohto používateľa?')">Delete</a></td>
-                <td><a href="user-edit.php?id=<?= $u['id'] ?>">Edit</a></td>
-                <td><a href="user-show.php?id=<?= $u['id'] ?>">Show</a></td>
+                <th>ID</th>
+                <th>Meno</th>
+                <th>Email</th>
+                <th>Role</th>
+                <th>Delete</th>
+                <th>Edit</th>
+                <th>Show</th>
             </tr>
-        <?php endforeach; ?>
-    </table>
-
+            <?php foreach($users as $u): ?>
+                <tr>
+                    <td><?= htmlspecialchars($u['id']) ?></td>
+                    <td><?= htmlspecialchars($u['name']) ?></td>
+                    <td><?= htmlspecialchars($u['email']) ?></td>
+                    <td><?= htmlspecialchars($u['role']) ?></td>
+                    <td><a href="?delete_user=<?= $u['id'] ?>" onclick="return confirm('Určite chcete vymazať tohto používateľa?')">Delete</a></td>
+                    <td><a href="user-edit.php?id=<?= $u['id'] ?>">Edit</a></td>
+                    <td><a href="user-show.php?id=<?= $u['id'] ?>">Show</a></td>
+                </tr>
+            <?php endforeach; ?>
+        </table>
+    <?php endif; ?>
 </section>
 
 <?php
